@@ -7,7 +7,7 @@ export const UserId = createParamDecorator((_, ctx: ExecutionContext) => {
 
     const loginPayload = authorizationToLoginPayload(authorization);
 
-    console.log('authorization: ', authorization);
+    //console.log('authorization: ', authorization);
 
     return loginPayload?.id;
 });

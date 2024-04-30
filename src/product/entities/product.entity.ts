@@ -21,19 +21,19 @@ export class ProductEntity {
   image: string;
 
   @Column({ name: 'weight', nullable: false })
-  weight: number;
+  weight?: number;
 
   @Column({ name: 'length', nullable: false })
-  length: number;
+  length?: number;
 
   @Column({ name: 'height', nullable: false })
-  height: number;
+  height?: number;
 
   @Column({ name: 'width', nullable: false })
-  width: number;
+  width?: number;
 
   @Column({ name: 'diameter', nullable: false })
-  diameter: number;
+  diameter?: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

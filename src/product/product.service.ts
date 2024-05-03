@@ -4,13 +4,14 @@ import { CategoryService } from '../category/category.service';
 import { DeleteResult, ILike, In, Repository } from 'typeorm';
 import { CreateProductDTO } from './dtos/create-product.dto';
 import { ProductEntity } from './entities/product.entity';
-/*import { UpdateProductDTO } from './dtos/update-procut.dto';
+import { UpdateProductDTO } from './dtos/update-product.dto';
+import { UpdateProductDTO } from './dtos/update-procut.dto';
 import { CountProduct } from './dtos/count-product.dto';
 import { SizeProductDTO } from '../correios/dto/size-product.dto';
 import { CorreiosService } from '../correios/correios.service';
 import { CdServiceEnum } from '../correios/enums/cd-service.enum';
 import { ReturnPriceDeliveryDto } from './dtos/return-price-delivery.dto';
-import { Pagination, PaginationMeta } from '../dtos/pagination.dto';*/
+import { Pagination, PaginationMeta } from '../dtos/pagination.dto';
   
 const DEFAULT_PAGE_SIZE = 10;
 const FIRST_PAGE = 1;
@@ -24,10 +25,10 @@ export class ProductService {
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
 
-    //private readonly correiosService: CorreiosService,
+    private readonly correiosService: CorreiosService,
   ) {}
   
-  /*async findAllPage(
+  async findAllPage(
     search?: string,
     size = DEFAULT_PAGE_SIZE,
     page = FIRST_PAGE,
@@ -57,7 +58,7 @@ export class ProductService {
         ),
         products,
       );
-    }*/
+    }
   
     async findAll(
       productId?: number[],
@@ -134,7 +135,7 @@ export class ProductService {
       return this.productRepository.delete({ id: productId });
     }
   
-    /*async updateProduct(
+    async updateProduct(
       updateProduct: UpdateProductDTO,
       productId: number,
     ): Promise<ProductEntity> {
@@ -172,6 +173,6 @@ export class ProductService {
       });
   
       return new ReturnPriceDeliveryDto(resultPrice);
-    }*/
+    }
 }
 

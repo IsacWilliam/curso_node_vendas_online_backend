@@ -1,12 +1,12 @@
 import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-//import { CountProduct } from '../product/dtos/count-product.dto';
+import { CountProduct } from '../product/dtos/count-product.dto';
 import { ProductService } from '../product/product.service';
 import { DeleteResult, Repository } from 'typeorm';
 import { CreateCategory } from './dtos/create-category.dto';
 import { ReturnCategory } from './dtos/return-category.dto';
 import { CategoryEntity } from './entities/category.entity';
-//import { UpdateCategory } from './dtos/update-category.dto';
+import { UpdateCategory } from './dtos/update-category.dto';
   
   @Injectable()
   export class CategoryService {
@@ -18,7 +18,7 @@ import { CategoryEntity } from './entities/category.entity';
       private readonly productService: ProductService,
     ) {}
   
-    /*findAmountCategoryInProducts(
+    findAmountCategoryInProducts(
       category: CategoryEntity,
       countList: CountProduct[],
     ): number {
@@ -49,7 +49,7 @@ import { CategoryEntity } from './entities/category.entity';
             this.findAmountCategoryInProducts(category, count),
           ),
       );
-    }*/
+    }
   
     async findCategoryById(
       categoryId: number,
@@ -115,7 +115,7 @@ import { CategoryEntity } from './entities/category.entity';
       return this.categoryRepository.delete({ id: categoryId });
     }
   
-    /*async editCategory(
+    async editCategory(
       categoryId: number,
       updateCategory: UpdateCategory,
     ): Promise<CategoryEntity> {
@@ -125,6 +125,6 @@ import { CategoryEntity } from './entities/category.entity';
         ...category,
         ...updateCategory,
       });
-    }*/
+    }
   }
   

@@ -37,7 +37,7 @@ export class CityService {
     return city;
   }
 
-  /*
+  
   async findCityByName(
     nameCity: string,
     nameState: string,
@@ -59,5 +59,5 @@ export class CityService {
     }
 
     return city;
-  }*/
+  }
 }

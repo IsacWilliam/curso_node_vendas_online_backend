@@ -1,6 +1,6 @@
 import { Controller, Get, Post, UsePipes, ValidationPipe, Body, Delete, Param, Put} from '@nestjs/common';
-import { Roles } from 'src/decorators/roles.decorator';
-import { UserType } from 'src/user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
+import { UserType } from '../user/enum/user-type.enum';
 import { ReturnProduct } from './dtos/return-product.dto';
 import { ProductService } from './product.service';
 import { ProductEntity } from './entities/product.entity';

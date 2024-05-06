@@ -11,10 +11,10 @@ import { CategoryEntity } from './entities/category.entity';
 export class CategoryController {
     constructor(private readonly categoryService: CategoryService){}
 
-    @Get()
+    /*@Get()
     async findAllCategories(): Promise<ReturnCategory[]> {
         return this.categoryService.findAllCategories();
-    }
+    }*/
 
     @Roles(UserType.ADMIN)
     @UsePipes(ValidationPipe)

@@ -14,7 +14,6 @@ import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { CartProductModule } from './cart-product/cart-product.module';
-import { CartgitService } from './status/cartgit/cartgit.service';
 
 @Module({
   imports: [
@@ -50,7 +49,6 @@ import { CartgitService } from './status/cartgit/cartgit.service';
       provide: APP_GUARD,
       useClass: RolesGuard
     },
-    CartgitService,
   ],
 })
 export class AppModule {}

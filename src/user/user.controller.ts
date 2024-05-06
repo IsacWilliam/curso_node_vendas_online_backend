@@ -19,7 +19,7 @@ export class UserController {
         return this.userService.createUser(createUser);
     }
 
-    @Roles(UserType.ADMIN)
+    @Roles(UserType.ADMIN, UserType.USER)
     @Get()
     async getAllUser():Promise<ReturnUserDto[]>{
         return (await this.userService.getAllUser()).map(

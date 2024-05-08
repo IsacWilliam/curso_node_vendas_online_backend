@@ -4,5 +4,11 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true
-  }
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true 
+  },
+  "eslint.validate": [
+    "javascript"
+  ]
 }

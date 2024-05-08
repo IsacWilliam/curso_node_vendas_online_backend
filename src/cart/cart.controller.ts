@@ -6,7 +6,6 @@ import { CartService } from './cart.service';
 import { UserId } from '../decorators/user-id.decorator';
 import { ReturnCartDTO } from './dtos/return-cart.dto';
 import { DeleteResult } from 'typeorm';
-import { CartEntity } from './entities/cart.entity';
 import { UpdateCartDTO } from './dtos/update-cart.dto';
 
 @Roles(UserType.ADMIN, UserType.USER)

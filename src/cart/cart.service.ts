@@ -50,7 +50,7 @@ export class CartService {
 
     async createCart(userId: number): Promise<CartEntity>{
         return this.cartRepository.save({
-            actvice: true,
+            active: true,
             userId
         });
     }

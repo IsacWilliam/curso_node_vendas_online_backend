@@ -1,9 +1,9 @@
-import { categoryMock } from "../../category/__mocks__/category.mock";
-import { UpdateProductDTO } from "../dtos/update-product.dto";
+import { categoryMock } from '../../category/__mocks__/category.mock';
+import { UpdateProductDTO } from '../dtos/update-procut.dto';
 
 export const updateProductMock: UpdateProductDTO = {
-    categoryId: categoryMock.id,
-    image: 'imageMock',
-    name: 'productNameMock',
-    price: 455
-}
+  categoryId: categoryMock.id,
+  image: 'kjbndabk',
+  name: 'gdsaga',
+  price: 43.0,
+};

@@ -22,7 +22,10 @@ export class CartProductEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @ManyToOne(() => ProductEntity, (productEntity: ProductEntity) => productEntity.cartProduct)
+  @ManyToOne(
+    () => ProductEntity,
+    (productEntity: ProductEntity) => productEntity.cartProduct,
+  )
   @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
   product?: ProductEntity;
 

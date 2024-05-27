@@ -1,86 +1,101 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CartEntity } from './entities/cart.entity';
+import { CartProductService } from '../cart-product/cart-product.service';
 import { DeleteResult, Repository } from 'typeorm';
 import { InsertCartDTO } from './dtos/insert-cart.dto';
-import { CartProductService } from '../cart-product/cart-product.service';
 import { UpdateCartDTO } from './dtos/update-cart.dto';
+import { CartEntity } from './entities/cart.entity';
 
 const LINE_AFFECTED = 1;
 
 @Injectable()
 export class CartService {
-    constructor(
-        @InjectRepository(CartEntity)
-        private readonly cartRepository: Repository<CartEntity>,
-        private readonly cartProductService: CartProductService
-    ){}
+  constructor(
+    @InjectRepository(CartEntity)
+    private readonly cartRepository: Repository<CartEntity>,
+    private readonly cartProductService: CartProductService,
+  ) {}
 
-    async clearCart(userId: number): Promise<DeleteResult> {
-        const cart = await this.findCartByUserId(userId);
+  async clearCart(userId: number): Promise<DeleteResult> {
+    const cart = await this.findCartByUserId(userId);
 
-        await this.cartRepository.save({
-            ...cart,
-            active: false
-        });
+    await this.cartRepository.save({
+      ...cart,
+      active: false,
+    });
 
-        return {
-            raw: [],
-            affected: LINE_AFFECTED
+    return {
+      raw: [],
+      affected: LINE_AFFECTED,
+    };
+  }
+
+  async findCartByUserId(
+    userId: number,
+    isRelations?: boolean,
+  ): Promise<CartEntity> {
+    const relations = isRelations
+      ? {
+          cartProduct: {
+            product: true,
+          },
         }
+      : undefined;
+
+    const cart = await this.cartRepository.findOne({
+      where: {
+        userId,
+        active: true,
+      },
+      relations,
+    });
+
+    if (!cart) {
+      throw new NotFoundException(`Cart active not found`);
     }
 
-    async findCartByUserId(userId: number, isRelations?: boolean): Promise<CartEntity>{
-        const relations = isRelations ? {cartProduct: {product: true}} : undefined;
-        
-        const cart = await this.cartRepository.findOne({
-            where: {
-                userId,
-                active: true
-            },
-            relations
-        });
+    return cart;
+  }
 
-        if(!cart) {
-            throw new NotFoundException('Cart active not found');
-        }
+  async createCart(userId: number): Promise<CartEntity> {
+    return this.cartRepository.save({
+      active: true,
+      userId,
+    });
+  }
 
-        return cart;
-    }
+  async insertProductInCart(
+    insertCartDTO: InsertCartDTO,
+    userId: number,
+  ): Promise<CartEntity> {
+    const cart = await this.findCartByUserId(userId).catch(async () => {
+      return this.createCart(userId);
+    });
 
-    async createCart(userId: number): Promise<CartEntity>{
-        return this.cartRepository.save({
-            active: true,
-            userId
-        });
-    }
+    await this.cartProductService.insertProductInCart(insertCartDTO, cart);
 
-    async insertProductInCart(insertCartDTO: InsertCartDTO, userId: number): Promise<CartEntity>{
-        const cart = await this.findCartByUserId(userId).catch(async() => {
-            return this.createCart(userId);
-        });
+    return cart;
+  }
 
-        await this.cartProductService.insertProductInCart(insertCartDTO, cart);
-        
-        return cart;
-    }
+  async deleteProductCart(
+    productId: number,
+    userId: number,
+  ): Promise<DeleteResult> {
+    const cart = await this.findCartByUserId(userId);
 
-    async deleteProductCart(productId: number, userId: number): Promise<DeleteResult> {
-        const cart = await this.findCartByUserId(userId);
-        
-        return this.cartProductService.deleteProductCart(productId, cart.id);
-    }
+    return this.cartProductService.deleteProductCart(productId, cart.id);
+  }
 
-    async updateProductInCart(
-        updateCartDTO: UpdateCartDTO,
-        userId: number
-    ): Promise<CartEntity> {
-        const cart = await this.findCartByUserId(userId).catch(async () => {
-            return this.createCart(userId);
-        });
+  async updateProductInCart(
+    updateCartDTO: UpdateCartDTO,
+    userId: number,
+  ): Promise<CartEntity> {
+    const cart = await this.findCartByUserId(userId).catch(async () => {
+      return this.createCart(userId);
+    });
 
-        await this.cartProductService.updateProductInCart(updateCartDTO, cart);
+    await this.cartProductService.updateProductInCart(updateCartDTO, cart);
 
-        return cart;
-    }
+    return cart;
+  }
 }

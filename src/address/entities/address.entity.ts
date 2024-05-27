@@ -1,6 +1,7 @@
-import { CityEntity } from "../../city/entities/city.entity";
-import { UserEntity } from "../../user/entities/user.entity";
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from "typeorm";
+import { CityEntity } from '../../city/entities/city.entity';
+import { UserEntity } from '../../user/entities/user.entity';
+import { OrderEntity } from '../../order/entities/order.entity';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'address' })
 export class AddressEntity {
@@ -29,10 +30,13 @@ export class AddressEntity {
   updatedAt: Date;
 
   @ManyToOne(() => UserEntity, (user) => user.addresses)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id'})
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user?: UserEntity;
 
   @ManyToOne(() => CityEntity, (city) => city.addresses)
-  @JoinColumn({ name: 'city_id', referencedColumnName: 'id'})
+  @JoinColumn({ name: 'city_id', referencedColumnName: 'id' })
   city?: CityEntity;
+
+  @OneToMany(() => OrderEntity, (order) => order.address)
+  orders?: OrderEntity[];
 }

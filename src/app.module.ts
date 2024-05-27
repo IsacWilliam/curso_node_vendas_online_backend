@@ -14,11 +14,16 @@ import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { CartProductModule } from './cart-product/cart-product.module';
+import { PaymentStatusModule } from './payment-status/payment-status.module';
+import { PaymentModule } from './payment/payment.module';
+import { OrderModule } from './order/order.module';
+import { OrderProductModule } from './order-product/order-product.module';
+import { CorreiosModule } from './correios/correios.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local']
+      envFilePath: ['.env.development.local'],
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -29,7 +34,7 @@ import { CartProductModule } from './cart-product/cart-product.module';
       username: process.env.DB_USERNAME,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
-      migrationsRun: true
+      migrationsRun: true,
     }),
     UserModule,
     StateModule,
@@ -41,13 +46,18 @@ import { CartProductModule } from './cart-product/cart-product.module';
     CategoryModule,
     ProductModule,
     CartModule,
-    CartProductModule
+    CartProductModule,
+    PaymentStatusModule,
+    PaymentModule,
+    OrderModule,
+    OrderProductModule,
+    CorreiosModule,
   ],
   controllers: [],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: RolesGuard
+      useClass: RolesGuard,
     },
   ],
 })

@@ -7,7 +7,6 @@ import { UserService } from '../user/user.service';
 import { LoginDto } from './dtos/login.dto';
 import { LoginPayload } from './dtos/loginPayload.dto';
 import { ReturnLogin } from './dtos/returnLogin.dto';
-import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +20,10 @@ export class AuthService {
       .findUserByEmail(loginDto.email)
       .catch(() => undefined);
 
-    const isMatch = await validatePassword(loginDto.password,user?.password || '');
+    const isMatch = await validatePassword(
+      loginDto.password,
+      user?.password || '',
+    );
 
     if (!user || !isMatch) {
       throw new NotFoundException('Email or passord invalid');

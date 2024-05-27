@@ -1,14 +1,14 @@
-import { UserEntity } from "../entities/user.entity";
-import { UserType } from "../enum/user-type.enum";
+import { UserEntity } from '../entities/user.entity';
+import { UserType } from '../enum/user-type.enum';
 
 export const userEntityMock: UserEntity = {
-    id: 23456,
-    name: 'nameMock',
-    email: 'email@mock.com',
-    phone: '37999998888',
-    cpf: '01234567890',
-    password: '$2b$10$oFNXQyFSqcfRhZEHDKbeGuo0dmvLKpsOJWndVV0GkNESVtFyGF1Tu',
-    typeUser: UserType.USER,
-    createdAt: new Date(),
-    updatedAt: new Date()
-}
+  cpf: '123543543',
+  createdAt: new Date(),
+  email: 'emailmock@emali.com',
+  id: 43242,
+  name: 'nameMock',
+  password: '$2b$10$S62WmVpIxL52Z.0y22DWfuaAz8.XUNESChWP.AlMFZnOJ9n9uiqi.',
+  phone: '321532523532',
+  typeUser: UserType.USER,
+  updatedAt: new Date(),
+};
